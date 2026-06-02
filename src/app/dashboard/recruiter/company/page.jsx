@@ -50,7 +50,7 @@ export default function CompanyProfile() {
 
         try {
             // Replace with your real IMGBB API key environmental variable injection
-            const IMGBB_API_KEY = 'YOUR_IMGBB_API_KEY'; 
+            const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_API; 
             const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
                 method: 'POST',
                 body: formData
@@ -104,6 +104,8 @@ export default function CompanyProfile() {
             logo: logoUrl || (company ? company.logo : ''),
             status: company ? company.status : 'Pending' // Retains status if updating profile details
         });
+
+        console.log("Submitted Company Profile Data:", company)
 
         setErrors({});
         setIsEditing(false);
