@@ -97,8 +97,7 @@ export default function JobCard({ job }) {
 
       {/* Card Footer: Action Button */}
       <Card.Footer className="p-0 pt-4">
-        <Button
-          as={Link}
+        <Link
           href={`/jobs/${jobId}`}
           className="group flex justify-start items-center gap-2 bg-transparent hover:bg-zinc-800/40 p-0 text-base font-medium text-white transition-all duration-200"
           variant="light"
@@ -106,7 +105,7 @@ export default function JobCard({ job }) {
         >
           Apply Now
           <ArrowRight className="group-hover:translate-x-1 text-zinc-400 group-hover:text-white w-4 h-4 transition-transform duration-200" />
-        </Button>
+        </Link>
       </Card.Footer>
 
     </Card>

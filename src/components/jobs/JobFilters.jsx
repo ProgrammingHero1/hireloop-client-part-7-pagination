@@ -20,7 +20,7 @@ export default function JobFilters({
         <div className="md:col-span-5">
           <TextField 
             value={searchQuery} 
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(value) => setSearchQuery(value)}
             className="w-full"
           >
             <span className="text-sm font-medium text-zinc-400 block mb-2">Search Jobs</span>
