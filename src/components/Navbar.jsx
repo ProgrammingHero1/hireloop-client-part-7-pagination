@@ -7,8 +7,8 @@ import { useSession, signOut } from "@/lib/auth-client";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: session, isPending } = useSession();
-  console.log("Session data in Navbar:", session, "Is pending:", isPending);
+  const { data: session } = useSession();
+
   const user = session?.user;
 
   const handleSignOut = async () => {
