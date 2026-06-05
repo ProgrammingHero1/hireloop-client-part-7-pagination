@@ -4,12 +4,16 @@ import { useState } from "react";
 import { Card, Button, Link, TextField, Label, InputGroup, Input } from "@heroui/react";
 import { Eye, EyeSlash, At, ShieldKeyhole } from "@gravity-ui/icons";
 import { signIn } from "@/lib/auth-client";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SigninPage() {
     // Form fields
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const router = useRouter()
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get("redirect") || "/";
+    // console.log("Redirecting to:", redirectTo);
     // UI States
     const [isVisible, setIsVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +33,6 @@ export default function SigninPage() {
             const { data, error: authError } = await signIn.email({
                 email,
                 password,
-                callbackURL: "/" 
             });
 
             if (authError) {
@@ -38,6 +41,7 @@ export default function SigninPage() {
                 setSuccess("Signed in successfully! Redirecting...");
                 setEmail("");
                 setPassword("");
+                router.push(redirectTo);
             }
         } catch (err) {
             setError("An unexpected network error occurred.");
@@ -123,7 +127,7 @@ export default function SigninPage() {
                     {/* Navigation Option */}
                     <div className="text-center pt-4 border-t border-zinc-100 dark:border-zinc-800 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
                         New to HireLoop?{" "}
-                        <Link href="/auth/signup" className="font-medium cursor-pointer text-sm text-blue-600 dark:text-blue-400">
+                        <Link href={`/auth/signup?redirect=${redirectTo}`} className="font-medium cursor-pointer text-sm text-blue-600 dark:text-blue-400">
                             Create an account
                         </Link>
                     </div>
