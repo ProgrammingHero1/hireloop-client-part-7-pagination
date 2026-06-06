@@ -7,6 +7,7 @@ import { getApplicationsByApplicant } from '@/lib/api/applications';
 import Link from 'next/link';
 // Importing a few Gravity UI icons to make it look clean and consistent
 import { ShieldExclamation, CircleInfo, Rocket } from '@gravity-ui/icons';
+import { getPlanById } from '@/lib/api/plans';
 
 const ApplyPage = async ({ params }) => {
     const { id } = await params;
@@ -42,10 +43,8 @@ const ApplyPage = async ({ params }) => {
 
     const applications = await getApplicationsByApplicant(user.id);
 
-    const plan = {
-        name: 'Free',
-        maxApplicationsPerMonth: 3
-    };
+    const plan = await getPlanById(user?.plan || 'seeker_free')
+    
     const job = await getJobById(id);
 
     const applicationCount = applications?.length || 0;
