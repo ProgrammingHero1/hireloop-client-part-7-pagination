@@ -4,17 +4,19 @@ import React from 'react';
 import { Table, Button, Badge } from '@heroui/react';
 // Assuming gravity-ui/icons are installed and imported like this
 import { CircleArrowDownFill } from '@gravity-ui/icons';
+import { updateCompany } from '@/lib/actions/companies';
 
 const CompanyTable = ({ companies }) => {
 
-    const handleApprove = (id) => {
-        console.log(`Approved company with ID: ${id}`);
-        // Add your API action call here
+    const handleApprove = async (id) => {
+        const result = await updateCompany(id, { status: 'Approved' })
+        if (result.modifiedCount) {
+            console.log(`Approved company with ID: ${id}`, result);
+        }
     };
 
-    const handleReject = (id) => {
-        console.log(`Rejected company with ID: ${id}`);
-        // Add your API action call here
+    const handleReject = async (id) => {
+        const result = await updateCompany(id, { status: 'Rejected' })
     };
 
     // Helper to format date cleanly like "Oct 12, 2023"
