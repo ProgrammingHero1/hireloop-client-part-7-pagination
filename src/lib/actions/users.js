@@ -12,7 +12,7 @@ export const updateUserRole = async (userId, role) => {
         headers: await headers()
     })
 
-    // revalidatePath('/dashboard/admin/users');
+    revalidatePath('/dashboard/admin/users');
 
     return data;
 }
