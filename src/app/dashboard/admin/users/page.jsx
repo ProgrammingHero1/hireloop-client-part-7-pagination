@@ -1,16 +1,21 @@
+import AdminUsersTable from '@/components/dashbaord/AdminUsersTable';
 import { getUsersList } from '@/lib/api/users';
 import React from 'react';
 
-const AdminUsersPage = async () => {
-    const data = await getUsersList()
-    const users = data.users;
-    console.log('users', users)
 
-    return (
-        <div>
-            <h2>Users: {users.length}</h2>
-        </div>
-    );
-};
+export default async function AdminUsersPage() {
+  const data = await getUsersList();
+  const users = data?.users || [];
 
-export default AdminUsersPage;
+  return (
+    <div className="min-h-screen bg-[#121212] p-8 text-slate-200">
+      <div className="max-w-7xl mx-auto space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-slate-100">
+          User Management ({users.length})
+        </h2>
+        
+        <AdminUsersTable initialUsers={users} />
+      </div>
+    </div>
+  );
+}
