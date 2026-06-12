@@ -5,11 +5,11 @@ import JobCard from "@/components/jobs/JobCard";
 import JobFilters from "@/components/jobs/JobFilters";
 import { useRouter } from "next/navigation";
 
-export default function JobListingContainer({ jobs }) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedType, setSelectedType] = useState("all");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [isRemoteOnly, setIsRemoteOnly] = useState(false);
+export default function JobListingContainer({ jobs, filters }) {
+  const [searchQuery, setSearchQuery] = useState(filters.search);
+  const [selectedType, setSelectedType] = useState(filters.jobType || "all");
+  const [selectedCategory, setSelectedCategory] = useState(filters.jobCategory || "all");
+  const [isRemoteOnly, setIsRemoteOnly] = useState( filters.isRemote|| false);
 
   const router = useRouter();
 
