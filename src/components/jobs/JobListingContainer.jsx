@@ -11,14 +11,21 @@ export default function JobListingContainer({ jobs, filters }) {
   const [selectedType, setSelectedType] = useState(filters.jobType || "all");
   const [selectedCategory, setSelectedCategory] = useState(filters.jobCategory || "all");
   const [isRemoteOnly, setIsRemoteOnly] = useState(filters.isRemote || false);
+  const [page, setPage] = useState(filters.page || 1);
 
   const router = useRouter();
 
-  const [page, setPage] = useState(1);
   const totalItems = jobs.length;
-  const itemsPerPage = 10;
-  const totalPages = Math.ceil(totalItems/itemsPerPage);
-  
+  const itemsPerPage = 12;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const getPageNumbers = () => {
+    const pages = [1, 2, 3, 4, 5, 6, 7, 8]
+    return pages;
+  }
+
+  const startItem = 1;
+  const endItem = totalItems;
 
   useEffect(() => {
     const sp = new URLSearchParams()
@@ -38,12 +45,16 @@ export default function JobListingContainer({ jobs, filters }) {
       sp.set('isRemote', true)
     }
 
+    if (page) {
+      sp.set('page', page)
+    }
+
     console.log('search params', sp.toString());
 
     const path = `?${sp.toString()}`
     router.push(path);
 
-  }, [router, searchQuery, selectedType, selectedCategory, isRemoteOnly])
+  }, [router, searchQuery, selectedType, selectedCategory, isRemoteOnly, page])
 
   // Compute matched filter rows instantly
   // const jobs = useMemo(() => {
